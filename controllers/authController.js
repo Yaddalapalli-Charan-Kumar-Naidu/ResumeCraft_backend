@@ -39,3 +39,46 @@ export const loginController = async (req, res) => {
     res.status(500).json({ msg: "Internal server error" });
   }
 };
+
+
+export const signupController = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        const { name, email, password, phoneNumber } = req.body;
+
+        // Check if all fields are provided
+        if (!name || !email || !password || !phoneNumber) {
+        return res
+            .status(400)
+            .json({ msg: "Name, email, password, and phone number are mandatory fields" });
+        }
+
+        // Check if the email is already registered
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+        return res.status(400).json({ msg: "Email is already registered" });
+        }
+
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new user
+        const newUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        phoneNumber,
+        });
+
+        await newUser.save();
+
+        res.status(201).json({ msg: "Successfully created user account" });
+    } catch (err) {
+        console.error("Error during signup:", err.message);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+};
