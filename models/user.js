@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
           ref: "Resume", // Reference to the Resume schema
         },
       ],
+    profilePicture: { type: String },
 });
 const User = mongoose.model('User', userSchema);
 export default User;

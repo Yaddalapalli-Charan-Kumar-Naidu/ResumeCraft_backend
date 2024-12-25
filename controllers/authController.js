@@ -61,6 +61,7 @@ export const signupController = async (req, res) => {
         if (existingUser) {
         return res.status(400).json({ msg: "Email is already registered" });
         }
+        const profilePicture = req.file ? req.file.path : null;
 
         // Hash the password
         const salt = await bcrypt.genSalt(10);
@@ -72,6 +73,7 @@ export const signupController = async (req, res) => {
         email,
         password: hashedPassword,
         phoneNumber,
+        profilePicture,
         });
 
         await newUser.save();
