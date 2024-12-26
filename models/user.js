@@ -33,6 +33,20 @@ const userSchema = new mongoose.Schema({
         },
       ],
     profilePicture: { type: String },
+    otp:{
+      type:String,
+    },
+    otpExpires:{
+      type:Date,
+    },
+    isVerified:{
+      type:Boolean,
+      default:false,
+    },
+    role:{
+      type:String,
+      default:"customer"
+    }
 });
 const User = mongoose.model('User', userSchema);
 export default User;
