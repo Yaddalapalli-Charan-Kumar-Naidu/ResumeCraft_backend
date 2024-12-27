@@ -15,9 +15,9 @@ router.post("/signup",
     signupController);
 router.post("/verify-otp",
     verifyOtp);
-router.post("forgot-password",
+router.post("/forgot-password",
     forgotPassword);
-router.post("reset-password",
+router.post("/reset-password",
     resetPassword
 )
 
