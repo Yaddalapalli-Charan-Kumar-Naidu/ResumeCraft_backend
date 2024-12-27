@@ -129,3 +129,71 @@ export const verifyOtp=async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate OTP and set expiration time
+    const otp = generateOTP();
+    const otpExpires = Date.now() + 10 * 60 * 1000; // OTP valid for 10 minutes
+    user.otp = otp;
+    user.otpExpires = otpExpires;
+
+    // Save user with updated OTP details
+    await user.save();
+
+    // Send OTP email
+    await sendOTPEmail(email, otp);
+
+    // Respond to the client
+    res.status(200).json({ message: "OTP sent to your email address" });
+  } catch (error) {
+    console.error("Error in forgot password:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Validate OTP and expiration time
+    if (!user.otp || user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: "OTP has expired" });
+    }
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update user password and clear OTP
+    user.password = hashedPassword;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Error in reset password:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
