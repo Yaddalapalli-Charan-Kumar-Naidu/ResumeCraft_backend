@@ -1,5 +1,5 @@
-import Resume from "../models/resume";
-import User from "../models/User";
+import Resume from "../models/resume.js";
+import User from "../models/User.js";
 export const createResume=async(req,res)=>{
     try {
         const {
