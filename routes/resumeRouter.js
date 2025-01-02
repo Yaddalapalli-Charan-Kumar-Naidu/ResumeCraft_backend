@@ -5,12 +5,12 @@ import { authenticate } from "../middlewares/authenticate.js";
 
 
 //resume creation
-router.post("/resume",authenticate,createResume);
+router.post("/",authenticate,createResume);
 
-router.get("/resume",authenticate,getUserResumes);
+router.get("/",authenticate,getUserResumes);
 
-router.put("/resume/:id",authenticate,updateResume);
+router.put("/:id",authenticate,updateResume);
 
-router.delete("/resume/:id",authenticate,deleteResume);
+router.delete("/:id",authenticate,deleteResume);
 
 export default router;

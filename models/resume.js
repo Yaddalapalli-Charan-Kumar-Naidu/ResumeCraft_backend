@@ -10,7 +10,7 @@ const resumeSchema = new mongoose.Schema({
   template: {
     type: mongoose.Schema.Types.ObjectId, // Template ID
     ref: "Template",
-    required:true,
+    // required:true,
   },
   title: {
     type: String,
