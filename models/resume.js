@@ -12,9 +12,25 @@ const resumeSchema = new mongoose.Schema({
     ref: "Template",
     // required:true,
   },
+  firstName:{
+    type:String,
+    required:true
+  },
+  lastName:{
+    type:String,
+    required:true
+  },
   title: {
     type: String,
     required: true,
+  },
+  phone:{
+    type:String,
+    required:true,
+  },
+  email:{
+    type:String,
+    required:true,
   },
   professionalSummary: {
     type: String, // Brief professional summary or objective
@@ -29,6 +45,7 @@ const resumeSchema = new mongoose.Schema({
       degree: { type: String, required: true }, // e.g., B.Tech, MBA
       institution: { type: String, required: true }, // e.g., XYZ University
       year: { type: String, required: true }, // e.g., 2023
+      cgpa:{type:String}
     },
   ],
   experience: [

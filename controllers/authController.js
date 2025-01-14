@@ -82,10 +82,10 @@ export const signupController = async (req, res) => {
         otp,
         otpExpires,
         });
+        await sendOTPEmail(email, otp);
 
         await newUser.save();
 
-        await sendOTPEmail(email, otp);
 
         
         // console.log("otp sent");
