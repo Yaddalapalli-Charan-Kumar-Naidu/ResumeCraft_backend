@@ -4,6 +4,10 @@ export const createResume=async(req,res)=>{
     try {
         const {
           template,
+          firstName,
+          lastName,
+          phone,
+          email,
           title,
           professionalSummary,
           designation,
@@ -31,6 +35,10 @@ export const createResume=async(req,res)=>{
         const newResume = new Resume({
           user: req.user.id, // User ID from authentication middleware
           template,
+          firstName,
+          lastName,
+          phone,
+          email,
           title,
           professionalSummary,
           designation,
