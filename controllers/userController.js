@@ -1,9 +1,15 @@
 import User from "../models/User.js"
 
 export const profile=async(req,res)=>{
+  const userData=await User.findById(req.user.id);
+  // console.log(userData);
     res.status(200).json({
         id:req.user.id,
-        email:req.user.email
+        email:req.user.email,
+        name:userData.name,
+        phone:userData.phoneNumber,
+        profilePicture:userData.profilePicture,
+        
     })
 }
 

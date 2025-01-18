@@ -6,7 +6,8 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import resumeRouter from "./routes/resumeRouter.js";
 import templateRouter from "./routes/templateRouter.js";
-
+import path from "path";
+import { fileURLToPath } from "url";
 //database connection
 dbConnect();
 
@@ -14,8 +15,9 @@ dbConnect();
 //middlewares
 app.use(express.json());
 app.use(cors());
-
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //routes
 app.use("/auth",authRouter);
 app.use("/user",userRouter);
