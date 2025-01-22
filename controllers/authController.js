@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../models/User.js";
+import User from "../models/user.js";
 import { validationResult } from "express-validator";
 import { generateOTP, sendOTPEmail } from '../utils/otpHelper.js';
 

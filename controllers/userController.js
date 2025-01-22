@@ -1,4 +1,4 @@
-import User from "../models/User.js"
+import User from "../models/user.js"
 
 export const profile=async(req,res)=>{
   const userData=await User.findById(req.user.id);
