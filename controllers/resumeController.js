@@ -109,22 +109,25 @@ export const updateResume = async (req, res) => {
 
     // Extract the fields to be updated from the request body
     const {
-      template,
-      title,
-      professionalSummary,
-      designation,
-      education,
-      experience,
-      skills,
-      hobbies,
-      socialMediaLinks,
-      projects,
-      certifications,
-      image,
+          firstName,
+          lastName,
+          phone,
+          email,
+          title,
+          professionalSummary,
+          designation,
+          education,
+          experience,
+          skills,
+          hobbies,
+          socialMediaLinks,
+          projects,
+          certifications,
+          image,
     } = req.body;
 
     // Update the resume fields
-    if (template) resume.template = template;
+    // if (template) resume.template = template;
     if (title) resume.title = title;
     if (professionalSummary) resume.professionalSummary = professionalSummary;
     if (designation) resume.designation = designation;
@@ -136,6 +139,10 @@ export const updateResume = async (req, res) => {
     if (projects) resume.projects = projects;
     if (certifications) resume.certifications = certifications;
     if (image) resume.image = image;
+    if(firstName) resume.firstName=firstName;
+    if(lastName) resume.lastName=lastName;
+    if(phone) resume.phone=phone;
+    if(email) resume.email=email;
 
     // Save the updated resume
     const updatedResume = await resume.save();
