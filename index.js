@@ -1,5 +1,7 @@
 import express from "express";
 const app=express();
+import dotenv from "dotenv";
+dotenv.config();
 import dbConnect from "./config/db.js";
 import cors from 'cors';
 import authRouter from "./routes/authRouter.js";
@@ -32,7 +34,7 @@ app.use((err, req, res, next) => {
 
 
 //port
-const PORT=8267;
+const PORT=process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`app is running at http://localhost:${PORT}`);
 })
