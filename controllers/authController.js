@@ -35,7 +35,7 @@ export const loginController = async (req, res) => {
     );
 
     // Send success response
-    res.status(200).json({ msg: "Login successful", token });
+    res.status(200).json({ msg: "Login successful", token ,isVerified:userData.isVerified});
   } catch (err) {
     console.error("Error during login:", err.message);
     res.status(500).json({ msg: "Internal server error" });
@@ -130,7 +130,6 @@ export const verifyOtp=async (req, res) => {
   }
 };
 
-
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -156,7 +155,7 @@ export const forgotPassword = async (req, res) => {
     // Respond to the client
     res.status(200).json({ message: "OTP sent to your email address" });
   } catch (error) {
-    console.error("Error in forgot password:", error.message);
+    console.error("Error in sending otp:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
